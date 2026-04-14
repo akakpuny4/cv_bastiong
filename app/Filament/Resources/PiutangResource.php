@@ -12,7 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-
+use Filament\Support\RawJs;
 class PiutangResource extends Resource
 {
     protected static ?string $model = Piutang::class;
@@ -35,27 +35,31 @@ class PiutangResource extends Resource
                 Forms\Components\TextInput::make('jumlah_pengambilan')
                     ->label('Jumlah Pengambilan (Hutang Awal)')
                     ->numeric()
-                    ->default(0)
-                    ->prefix('Rp'),
+                    ->prefix('Rp')
+                    ->mask(RawJs::make('$money($input, \',\', \'.\')'))
+                    ->stripCharacters('.'),
 
                 Forms\Components\TextInput::make('bunga')
                     ->label('Bunga Ditagih (Jika ada)')
                     ->numeric()
-                    ->default(0)
-                    ->prefix('Rp'),
+                    ->prefix('Rp')
+                    ->mask(RawJs::make('$money($input, \',\', \'.\')'))
+                    ->stripCharacters('.'),
 
                 Forms\Components\TextInput::make('jumlah_pembayaran')
                     ->label('Jumlah Sudah Dibayar')
                     ->numeric()
-                    ->default(0)
-                    ->prefix('Rp'),
+                    ->prefix('Rp')
+                    ->mask(RawJs::make('$money($input, \',\', \'.\')'))
+                    ->stripCharacters('.'),
 
                 Forms\Components\TextInput::make('saldo_piutang')
                     ->label('Sisa Piutang')
                     ->numeric()
-                    ->default(0)
                     ->prefix('Rp')
-                    ->disabled() // Dimatikan agar tidak bisa diubah manual
+                    ->disabled()
+                    ->mask(RawJs::make('$money($input, \',\', \'.\')'))
+                    ->stripCharacters('.')
                     ->helperText('Akan dihitung otomatis: (Pengambilan + Bunga) - Pembayaran.'),
             ]);
     }

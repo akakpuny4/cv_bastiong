@@ -12,7 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-
+use Filament\Support\RawJs;
 class BukuKasResource extends Resource
 {
     protected static ?string $model = BukuKas::class;
@@ -51,21 +51,24 @@ class BukuKasResource extends Resource
                 Forms\Components\TextInput::make('debet')
                     ->label('Uang Masuk (Debet)')
                     ->numeric()
-                    ->default(0)
-                    ->prefix('Rp'),
+                    ->prefix('Rp')
+                    ->mask(RawJs::make('$money($input, \',\', \'.\')'))
+                    ->stripCharacters('.'),
 
                 Forms\Components\TextInput::make('kredit')
                     ->label('Uang Keluar (Kredit)')
                     ->numeric()
-                    ->default(0)
-                    ->prefix('Rp'),
+                    ->prefix('Rp')
+                    ->mask(RawJs::make('$money($input, \',\', \'.\')'))
+                    ->stripCharacters('.'),
 
                 Forms\Components\TextInput::make('saldo_berjalan')
                     ->numeric()
-                    ->default(0)
                     ->prefix('Rp')
-                    ->disabled() // Dimatikan agar tidak diinput manual
-                    ->helperText('Otomatis dihitung oleh sistem nanti.'),
+                    ->disabled()
+                    ->mask(RawJs::make('$money($input, \',\', \'.\')'))
+                    ->stripCharacters('.')
+                    ->helperText('Otomatis dihitung oleh sistem.'),
             ]);
     }
 

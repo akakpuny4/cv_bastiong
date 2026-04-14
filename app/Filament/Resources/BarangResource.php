@@ -12,7 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-
+use Filament\Support\RawJs;
 class BarangResource extends Resource
 {
     protected static ?string $model = Barang::class;
@@ -32,12 +32,15 @@ class BarangResource extends Resource
                     ->placeholder('Misal: Drum, Zak, Liter'),
                 Forms\Components\TextInput::make('harga_beli_rata_rata')
                     ->numeric()
-                    ->default(0)
-                    ->prefix('Rp'),
+                    ->prefix('Rp')
+                    ->mask(RawJs::make('$money($input, \',\', \'.\')'))
+                    ->stripCharacters('.'),
+
                 Forms\Components\TextInput::make('harga_jual_default')
                     ->numeric()
-                    ->default(0)
-                    ->prefix('Rp'),
+                    ->prefix('Rp')
+                    ->mask(RawJs::make('$money($input, \',\', \'.\')'))
+                    ->stripCharacters('.'),
             ]);
     }
 

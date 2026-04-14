@@ -12,7 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-
+use Filament\Support\RawJs;
 class RekeningResource extends Resource
 {
     protected static ?string $model = Rekening::class;
@@ -29,8 +29,9 @@ class RekeningResource extends Resource
                     ->placeholder('Misal: Kas Uang, Mandiri BJT, dll'),
                 Forms\Components\TextInput::make('saldo_akhir')
                     ->numeric()
-                    ->default(0)
-                    ->prefix('Rp'),
+                    ->prefix('Rp')
+                    ->mask(RawJs::make('$money($input, \',\', \'.\')'))
+                    ->stripCharacters('.'),
             ]);
     }
 

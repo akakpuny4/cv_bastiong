@@ -12,7 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-
+use Filament\Support\RawJs;
 class StokResource extends Resource
 {
     protected static ?string $model = Stok::class;
@@ -39,21 +39,18 @@ class StokResource extends Resource
                     ->maxLength(255),
 
                 Forms\Components\TextInput::make('aspal_masuk')
-                    ->numeric()
-                    ->default(0),
+                    ->numeric(),
 
                 Forms\Components\TextInput::make('stok_keluar_jual')
-                    ->numeric()
-                    ->default(0),
+                    ->numeric(),
 
                 Forms\Components\TextInput::make('stok_keluar_gudang')
-                    ->numeric()
-                    ->default(0),
+                    ->numeric(),
 
                 Forms\Components\TextInput::make('saldo_akhir')
                     ->numeric()
-                    ->default(0)
-                    ->helperText('Catatan: Nanti kita akan buat sistem otomatis menghitung saldo ini di Tahap Logic.'),
+                    ->disabled()
+                    ->helperText('Otomatis dihitung oleh sistem.'),
             ]);
     }
 

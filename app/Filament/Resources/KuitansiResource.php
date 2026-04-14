@@ -12,7 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-
+use Filament\Support\RawJs;
 class KuitansiResource extends Resource
 {
     protected static ?string $model = Kuitansi::class;
@@ -53,7 +53,9 @@ class KuitansiResource extends Resource
                     ->numeric()
                     ->required()
                     ->prefix('Rp')
-                    ->live(onBlur: true) // Fitur untuk memicu aksi saat kita selesai ngetik angka
+                    ->mask(RawJs::make('$money($input, \',\', \'.\')'))
+                    ->stripCharacters('.')
+                    ->live(onBlur: true)
                     ->helperText('Angka jumlah uang'),
 
                 Forms\Components\TextInput::make('terbilang')
