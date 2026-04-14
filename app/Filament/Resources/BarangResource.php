@@ -34,13 +34,15 @@ class BarangResource extends Resource
                     ->numeric()
                     ->prefix('Rp')
                     ->mask(RawJs::make('$money($input, \',\', \'.\')'))
-                    ->stripCharacters('.'),
+                    ->stripCharacters('.')
+                    ->dehydrateStateUsing(fn ($state) => $state ?? 0),
 
                 Forms\Components\TextInput::make('harga_jual_default')
                     ->numeric()
                     ->prefix('Rp')
                     ->mask(RawJs::make('$money($input, \',\', \'.\')'))
-                    ->stripCharacters('.'),
+                    ->stripCharacters('.')
+                    ->dehydrateStateUsing(fn ($state) => $state ?? 0),
             ]);
     }
 

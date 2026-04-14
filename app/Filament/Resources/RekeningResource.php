@@ -31,7 +31,8 @@ class RekeningResource extends Resource
                     ->numeric()
                     ->prefix('Rp')
                     ->mask(RawJs::make('$money($input, \',\', \'.\')'))
-                    ->stripCharacters('.'),
+                    ->stripCharacters('.')
+                    ->dehydrateStateUsing(fn ($state) => $state ?? 0),
             ]);
     }
 

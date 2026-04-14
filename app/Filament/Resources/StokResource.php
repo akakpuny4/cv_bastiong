@@ -39,13 +39,16 @@ class StokResource extends Resource
                     ->maxLength(255),
 
                 Forms\Components\TextInput::make('aspal_masuk')
-                    ->numeric(),
+                    ->numeric()
+                    ->dehydrateStateUsing(fn ($state) => $state ?? 0),
 
                 Forms\Components\TextInput::make('stok_keluar_jual')
-                    ->numeric(),
+                    ->numeric()
+                    ->dehydrateStateUsing(fn ($state) => $state ?? 0),
 
                 Forms\Components\TextInput::make('stok_keluar_gudang')
-                    ->numeric(),
+                    ->numeric()
+                    ->dehydrateStateUsing(fn ($state) => $state ?? 0),
 
                 Forms\Components\TextInput::make('saldo_akhir')
                     ->numeric()

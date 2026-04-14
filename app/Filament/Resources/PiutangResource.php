@@ -37,21 +37,24 @@ class PiutangResource extends Resource
                     ->numeric()
                     ->prefix('Rp')
                     ->mask(RawJs::make('$money($input, \',\', \'.\')'))
-                    ->stripCharacters('.'),
+                    ->stripCharacters('.')
+                    ->dehydrateStateUsing(fn ($state) => $state ?? 0),
 
                 Forms\Components\TextInput::make('bunga')
                     ->label('Bunga Ditagih (Jika ada)')
                     ->numeric()
                     ->prefix('Rp')
                     ->mask(RawJs::make('$money($input, \',\', \'.\')'))
-                    ->stripCharacters('.'),
+                    ->stripCharacters('.')
+                    ->dehydrateStateUsing(fn ($state) => $state ?? 0),
 
                 Forms\Components\TextInput::make('jumlah_pembayaran')
                     ->label('Jumlah Sudah Dibayar')
                     ->numeric()
                     ->prefix('Rp')
                     ->mask(RawJs::make('$money($input, \',\', \'.\')'))
-                    ->stripCharacters('.'),
+                    ->stripCharacters('.')
+                    ->dehydrateStateUsing(fn ($state) => $state ?? 0),
 
                 Forms\Components\TextInput::make('saldo_piutang')
                     ->label('Sisa Piutang')

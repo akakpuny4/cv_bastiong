@@ -53,14 +53,18 @@ class BukuKasResource extends Resource
                     ->numeric()
                     ->prefix('Rp')
                     ->mask(RawJs::make('$money($input, \',\', \'.\')'))
-                    ->stripCharacters('.'),
+                    ->stripCharacters('.')
+                    // BARIS BARU DI BAWAH INI
+                    ->dehydrateStateUsing(fn ($state) => $state ?? 0),
 
                 Forms\Components\TextInput::make('kredit')
                     ->label('Uang Keluar (Kredit)')
                     ->numeric()
                     ->prefix('Rp')
                     ->mask(RawJs::make('$money($input, \',\', \'.\')'))
-                    ->stripCharacters('.'),
+                    ->stripCharacters('.')
+                    // BARIS BARU DI BAWAH INI
+                    ->dehydrateStateUsing(fn ($state) => $state ?? 0),
 
                 Forms\Components\TextInput::make('saldo_berjalan')
                     ->numeric()
